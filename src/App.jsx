@@ -1,8 +1,17 @@
 function App() {
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <h1 className="text-6xl text-cyan-400 font-bold">
-        Tailwind Working 🚀
+    <div style={{
+      background: "black",
+      minHeight: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
+    }}>
+      <h1 style={{
+        color: "cyan",
+        fontSize: "60px"
+      }}>
+        CSS Test
       </h1>
     </div>
   );
