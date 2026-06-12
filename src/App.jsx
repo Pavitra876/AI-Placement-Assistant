@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import Sidebar from './components/Sidebar'
-import AskAI from './components/AskAI'
-import InterviewPrep from './components/InterviewPrep'
-import ResumeAnalyzer from './components/ResumeAnalyzer'
-import SkillRoadmap from './components/SkillRoadmap'
-import Companies from './components/Companies'
+import Sidebar from './Components/Sidebar'
+import AskAI from './Components/AskAI'
+import InterviewPrep from './Components/InterviewPrep'
+import ResumeAnalyzer from './Components/ResumeAnalyzer'
+import SkillRoadmap from './Components/SkillRoadmap'
+import Companies from './Components/Companies'
 
 function App() {
   const [tab, setTab] = useState('ask')
