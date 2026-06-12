@@ -1,18 +1,21 @@
-const API_KEY = import.meta.env.VITE_GEMINI_KEY;
-const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
-
 export async function askGemini(userPrompt, systemContext = '') {
-  const fullPrompt = systemContext
-    ? `${systemContext}\n\nStudent question: ${userPrompt}`
-    : userPrompt;
-
-  const res = await fetch(URL, {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${import.meta.env.VITE_GEMINI_KEY}`,
+      'HTTP-Referer': 'http://localhost:5173',
+      'X-Title': 'Placement Assistant'
+    },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: fullPrompt }] }]
+      model: 'openrouter/auto',
+      messages: [
+        { role: 'system', content: systemContext || 'You are a placement assistant for MCA and engineering students in India. Give structured practical answers.' },
+        { role: 'user', content: userPrompt }
+      ]
     })
   });
   const data = await res.json();
-  return data.candidates[0].content.parts[0].text;
+  console.log('Response:', JSON.stringify(data));
+  return data.choices[0].message.content;
 }
