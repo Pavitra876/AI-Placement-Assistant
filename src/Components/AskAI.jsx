@@ -18,7 +18,7 @@ export default function AskAI() {
     }
     setLoading(false)
   }
-  console.log('Key:', import.meta.env.VITE_GEMINI_KEY)
+  
   return (
     <div className="max-w-3xl mx-auto">
       <h2 className="text-2xl font-semibold text-purple-400 mb-2">Ask AI</h2>
