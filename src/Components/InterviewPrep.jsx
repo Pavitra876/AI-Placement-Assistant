@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import { askGemini } from '../services/gemini'
 
-const companies = ['TCS', 'Infosys', 'Wipro', 'Accenture', 'Cognizant', 'HCL']
-const roles = ['Software Developer', 'Web Developer', 'Data Analyst', 'Testing']
-
 export default function InterviewPrep() {
-  const [company, setCompany] = useState('TCS')
-  const [role, setRole] = useState('Software Developer')
+  const [company, setCompany] = useState('')
+  const [role, setRole] = useState('')
   const [response, setResponse] = useState('')
   const [loading, setLoading] = useState(false)
 
   async function handleGenerate() {
+    if (!company.trim() || !role.trim()) {
+      alert('Please enter both company and role!')
+      return
+    }
     setLoading(true)
     setResponse('')
     try {
@@ -28,28 +29,28 @@ export default function InterviewPrep() {
   return (
     <div className="max-w-3xl mx-auto">
       <h2 className="text-2xl font-semibold text-purple-400 mb-2">Interview Preparation</h2>
-      <p className="text-gray-400 text-sm mb-6">Get company-specific interview questions instantly</p>
+      <p className="text-gray-400 text-sm mb-6">Get interview questions for any company and role</p>
 
       <div className="flex gap-4 mb-4">
         <div className="flex-1">
-          <label className="text-gray-400 text-xs mb-1 block">Select Company</label>
-          <select
+          <label className="text-gray-400 text-xs mb-1 block">Company Name</label>
+          <input
+            type="text"
             value={company}
             onChange={e => setCompany(e.target.value)}
+            placeholder="e.g. Google, TCS, Wipro..."
             className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white text-sm focus:outline-none focus:border-purple-500"
-          >
-            {companies.map(c => <option key={c}>{c}</option>)}
-          </select>
+          />
         </div>
         <div className="flex-1">
-          <label className="text-gray-400 text-xs mb-1 block">Select Role</label>
-          <select
+          <label className="text-gray-400 text-xs mb-1 block">Role / Position</label>
+          <input
+            type="text"
             value={role}
             onChange={e => setRole(e.target.value)}
+            placeholder="e.g. Software Developer, Data Analyst..."
             className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white text-sm focus:outline-none focus:border-purple-500"
-          >
-            {roles.map(r => <option key={r}>{r}</option>)}
-          </select>
+          />
         </div>
       </div>
 
@@ -63,7 +64,9 @@ export default function InterviewPrep() {
 
       {response && (
         <div className="mt-6 bg-gray-900 border border-gray-800 rounded-lg p-5">
-          <p className="text-purple-400 text-xs font-medium mb-3">Interview Questions for {company}</p>
+          <p className="text-purple-400 text-xs font-medium mb-3">
+            Interview Questions — {company} ({role})
+          </p>
           <p className="text-gray-200 text-sm leading-relaxed whitespace-pre-wrap">{response}</p>
         </div>
       )}
